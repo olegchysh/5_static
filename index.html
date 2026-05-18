@@ -1,12 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Степан Ткачишин — Кібербезпека</title>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Лабораторна робота №5 - Статичний сайт</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+
+    <h1>Степан Ткачишин</h1>
+    <p>Студент кафедри систем захисту інформації</p>
+    
+    <hr>
+
+    <p><b>Ваша ОС:</b> Визначається...</p>
+    <p><b>Браузер:</b> Визначається...</p>
+    <p><b>Телефон:</b> +380967658345</p>
+    <p><b>Email:</b> stepan-oleh.tkachyshyn.kb.2023@lpnu.ua</p>
+
+    <hr>
+
+    <h2>Відгуки (Варіант 19)</h2>
+    <div id="reviews-box">
+        Завантаження відгуків...
+    </div>
+
+    <script>
+        window.onload = function() {
+            const os = navigator.platform;
+            const ua = navigator.userAgent;
+            let browser = "Невідомий";
+            if (ua.includes("Chrome")) browser = "Google Chrome";
+            else if (ua.includes("Firefox")) browser = "Mozilla Firefox";
+            else if (ua.includes("Opera") || ua.includes("OPR")) browser = "Opera";
+
+            // Безпечно замінюємо текст у конкретних місцях, не ламаючи весь body
+            document.body.innerHTML = document.body.innerHTML
+                .replace("Ваша ОС: Визначається...", "Ваша ОС: " + os)
+                .replace("Браузер: Визначається...", "Браузер: " + browser)
+                .replace("+380967658345", "+380960924788")
+                .replace("stepan-oleh.tkachyshyn.kb.2023@lpnu.ua", "new-email@lpnu.ua <br> <b>Telegram:</b> @stepan_stepan99");
+
+            // Завантажуємо відгуки через 1 секунду
+            setTimeout(() => {
+                const reviews = [
+                    { name: "Олексій", text: "Чудовий сервіс, все працює швидко!" },
+                    { name: "Марія", text: "Дуже зручний інтерфейс, дякую за допомогу." },
+                    { name: "Іван", text: "Лабораторна №4 виконана на відмінно." }
+                ];
+
+                let html = "<ul>";
+                reviews.forEach(r => {
+                    html += `<li><strong>${r.name}:</strong> ${r.text}</li>`;
+                });
+                html += "</ul>";
+
+                const reviewsBox = document.getElementById("reviews-box");
+                if (reviewsBox) {
+                    reviewsBox.innerHTML = html;
+                }
+            }, 1000);
+        };
+    </script>
+  </body>
 </html>
